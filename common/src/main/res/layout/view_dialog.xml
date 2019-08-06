@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
+        <variable name="data" type="com.even.common.beans.DialogBean"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_bg"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:text="@{data.title}"
+                android:visibility="@{TextUtils.isEmpty(data.title)?View.GONE:View.VISIBLE}"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:text="@{data.msg}"
+                android:visibility="@{TextUtils.isEmpty(data.msg)?View.GONE:View.VISIBLE}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="10dp"
+                android:background="#C6C6C6"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/btnCancel"
+                    android:text="@{data.cancel}"
+                    android:visibility="@{TextUtils.isEmpty(data.cancel) ? View.GONE:View.VISIBLE}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:textColor="#26B7BC"
+                    android:textSize="16sp"/>
+
+            <TextView
+                    android:layout_width="0.5dp"
+                    android:visibility="@{TextUtils.isEmpty(data.cancel) ? View.GONE:View.VISIBLE}"
+                    android:layout_height="43dp"
+                    android:background="#C6C6C6"/>
+
+            <Button
+                    android:id="@+id/btnConfirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="@{data.confirm}"
+                    android:gravity="center"
+                    android:textColor="#26B7BC"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
