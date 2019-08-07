@@ -5,9 +5,9 @@ import io.reactivex.disposables.Disposable
 /**
  * @author  Created by Even on 2019/8/7
  *  Email: emailtopan@163.com
- *  处理请求返回结果接口，返回已格式化数据
+ *  处理请求返回结果接口，返回json格式数据
  */
-interface ISubscriber<T> {
+interface IStringSubscriber {
     /**
      * 订阅回调
      */
@@ -16,12 +16,12 @@ interface ISubscriber<T> {
     /**
      * 失败回调
      */
-    fun doFail(errorMsg: String)
+    fun onFail(errorMsg: String)
 
     /**
      * 成功回调
      */
-    fun doNext(t: T)
+    fun doNext(json: String)
 
     /**
      * 请求晚餐
