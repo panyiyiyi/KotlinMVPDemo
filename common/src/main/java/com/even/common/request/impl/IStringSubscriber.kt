@@ -16,7 +16,7 @@ interface IStringSubscriber {
     /**
      * 失败回调
      */
-    fun onFail(errorMsg: String)
+    fun doFail(errorMsg: String)
 
     /**
      * 成功回调
