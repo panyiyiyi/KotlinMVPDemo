@@ -1,7 +1,7 @@
 package com.even.common.request.interceptor
 
 import android.text.TextUtils
-import com.even.common.request.utils.LogUtils
+import com.even.common.utils.LogUtils
 import okhttp3.logging.HttpLoggingInterceptor
 import java.lang.StringBuilder
 

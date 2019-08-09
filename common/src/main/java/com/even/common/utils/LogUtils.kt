@@ -1,6 +1,5 @@
-package com.even.common.request.utils
+package com.even.common.utils
 
-import android.text.TextUtils
 import android.util.Log
 
 /**
@@ -27,8 +26,8 @@ object LogUtils {
     }
 
     fun init(isShow: Boolean, logTag: String) {
-        this.mIsShowLog = isShow
-        this.mLogTag = logTag
+        mIsShowLog = isShow
+        mLogTag = logTag
     }
 
     fun i(any: Any) {
