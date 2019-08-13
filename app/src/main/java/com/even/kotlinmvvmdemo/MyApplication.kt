@@ -1,14 +1,17 @@
 package com.even.kotlinmvvmdemo
 
-import android.app.Application
+import com.even.common.base.BaseApplication
 
 /**
  * @author  Created by Even on 2019/8/5
  *  Email: emailtopan@163.com
  *
  */
-class MyApplication : Application() {
+class MyApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
+
+        initHttpUtils("https://testmemapi.kanghehealth.com", BuildConfig.DEBUG)
     }
+
 }

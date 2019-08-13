@@ -13,8 +13,8 @@ import javax.net.ssl.*
  */
 object SSLUtils {
     class SSLParams {
-        var mSSLSocketFactory: SSLSocketFactory? = null
-        var trustManager: X509TrustManager? = null
+        lateinit var mSSLSocketFactory: SSLSocketFactory
+        lateinit var trustManager: X509TrustManager
     }
 
     /**
@@ -79,12 +79,10 @@ object SSLUtils {
         val prepareKeyManager = prepareKeyManager(isFile, password)
         val trustManagers = prepareTrustManager(*certificates)
         var manager: X509TrustManager
-        if (null != trustManager) {
-            manager = trustManager
-        } else if (trustManagers != null) {
-            manager = chooseTrustManager(trustManagers)!!
-        } else {
-            manager = unSafeTrustManager
+        when {
+            null != trustManager -> manager = trustManager
+            trustManagers != null -> manager = chooseTrustManager(trustManagers)!!
+            else -> manager = unSafeTrustManager
         }
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(prepareKeyManager, arrayOf<TrustManager>(manager), null)
@@ -112,7 +110,10 @@ object SSLUtils {
     /**
      * 获取证书
      */
-    private fun prepareTrustManager(vararg certificates: InputStream): Array<out TrustManager> {
+    private fun prepareTrustManager(vararg certificates: InputStream): Array<TrustManager>? {
+        if (certificates.isEmpty()) {
+            return null
+        }
         val certificateFactory = CertificateFactory.getInstance("X.509")
         val keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
         keyStore.load(null)

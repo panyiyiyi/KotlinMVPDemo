@@ -9,8 +9,12 @@ import com.even.common.base.BaseActivity
 import com.even.common.beans.DialogBean
 import com.even.common.impl.OnDialogConfirmClick
 import com.even.common.impl.OnPermissionCallBacks
+import com.even.common.request.observer.BaseStringObserver
+import com.even.common.request.observer.Transformer
 import com.even.common.request.utils.RxHttpUtils
 import com.even.common.utils.DialogUtils
+import com.even.common.utils.LogUtils
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -49,11 +53,30 @@ class MainActivity : BaseActivity() {
 //                    }
 //                })
 
-            RxHttpUtils.createApi(Objects::class.java)
+            RxHttpUtils.createApi(ApiService::class.java)
+                .getImageVerification()
+                .compose(Transformer.switchSchedulers())
+                .subscribe(object : BaseStringObserver(RxTag) {
+                    override fun doSubscriber(disposable: Disposable) {
+                    }
+
+                    override fun doFail(errorMsg: String) {
+                        LogUtils.e(errorMsg)
+                    }
+
+                    override fun doNext(json: String) {
+                        LogUtils.e(json)
+                    }
+
+                    override fun doCompleted() {
+                        LogUtils.e("")
+                    }
+                })
 
         }
     }
 
     override fun getLogicClazz(): Class<*>? = null
+
 
 }

@@ -8,10 +8,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.alibaba.android.arouter.launcher.ARouter
 import com.even.common.base.BaseActivity.Companion.PERMISSION_RECODE
 import com.even.common.base.model.LogicProxy
 import com.even.common.impl.OnPermissionCallBack
 import com.even.common.impl.OnPermissionCallBacks
+import com.even.common.request.utils.RxJavaManagerUtils
 import com.even.common.utils.ActivityManagerUtils
 import com.even.common.utils.DialogUtils
 
@@ -44,8 +46,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         super.onCreate(savedInstanceState)
         setContentView(getContentView())
         activity = this
+        RxTag = packageName.plus(".").plus(javaClass.simpleName)
 
         ActivityManagerUtils.addActivity(this)
+        ARouter.getInstance().inject(this)
         this.initPresenter()
         this.initView()
         this.initData()
@@ -164,6 +168,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun onPause() {
         super.onPause()
         //防止结束当前界面立马进入本界面请求被取消
+        RxJavaManagerUtils.cancelDisposable(RxTag)
 
     }
 

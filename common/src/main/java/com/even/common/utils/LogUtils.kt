@@ -11,11 +11,11 @@ object LogUtils {
     /**
      * log单次打印的长度
      */
-    const val LOG_LENGTH = 2000
+    private const val LOG_LENGTH = 2000
     /**
      * 是否显示日志
      */
-    var mIsShowLog = false
+    var mIsShowLog = true
     /**
      * 日志tag
      */
