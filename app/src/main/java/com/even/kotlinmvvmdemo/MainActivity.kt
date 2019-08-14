@@ -1,24 +1,18 @@
 package com.even.kotlinmvvmdemo
 
-import android.Manifest
-import android.app.Dialog
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Toast
 import com.even.common.base.BaseActivity
-import com.even.common.beans.DialogBean
-import com.even.common.impl.OnDialogConfirmClick
-import com.even.common.impl.OnPermissionCallBacks
 import com.even.common.request.observer.BaseStringObserver
 import com.even.common.request.observer.Transformer
 import com.even.common.request.utils.RxHttpUtils
-import com.even.common.utils.DialogUtils
+import com.even.common.utils.EventBusUtils
 import com.even.common.utils.LogUtils
+import com.even.common.utils.SpUtils
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : BaseActivity() {
+    override fun getTitleBarView(): Int = R.layout.activity_main
+
     override fun getContentView(): Int = R.layout.activity_main
 
     override fun initView() {
@@ -56,7 +50,7 @@ class MainActivity : BaseActivity() {
             RxHttpUtils.createApi(ApiService::class.java)
                 .getImageVerification()
                 .compose(Transformer.switchSchedulers())
-                .subscribe(object : BaseStringObserver(RxTag) {
+                .subscribe(object : BaseStringObserver(mRxTag) {
                     override fun doSubscriber(disposable: Disposable) {
                     }
 
@@ -72,7 +66,6 @@ class MainActivity : BaseActivity() {
                         LogUtils.e("")
                     }
                 })
-
         }
     }
 

@@ -9,11 +9,7 @@ import java.util.*
  * Activity管理工具类
  */
 object ActivityManagerUtils {
-    private var activityStacks: Stack<Activity>
-
-    init {
-        activityStacks = Stack()
-    }
+    private var activityStacks: Stack<Activity> = Stack()
 
     fun addActivity(activity: Activity) {
         activityStacks.add(activity)

@@ -5,11 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.launcher.ARouter
-import com.even.common.base.BaseActivity.Companion.PERMISSION_RECODE
 import com.even.common.base.model.LogicProxy
 import com.even.common.impl.OnPermissionCallBack
 import com.even.common.impl.OnPermissionCallBacks
@@ -31,7 +31,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     /**
      * 用来存放网络请求的Key
      */
-    lateinit var RxTag: String
+    lateinit var mRxTag: String
     var mPresenter: BasePresenter<BaseView>? = null
     lateinit var activity: BaseActivity
 
@@ -44,9 +44,28 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getContentView())
+        if (useDefaultTitlBar()) {
+            val linearLayout = LinearLayout(this)
+            val lp = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            val titleBar = layoutInflater.inflate(getTitleBarView(), null)
+            linearLayout.orientation = LinearLayout.VISIBLE
+            linearLayout.addView(titleBar, lp)
+            linearLayout.addView(
+                layoutInflater.inflate(getContentView(), null), LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
+            )
+            setContentView(linearLayout)
+        } else {
+            setContentView(getContentView())
+        }
+
         activity = this
-        RxTag = packageName.plus(".").plus(javaClass.simpleName)
+        mRxTag = packageName.plus(".").plus(javaClass.simpleName)
 
         ActivityManagerUtils.addActivity(this)
         ARouter.getInstance().inject(this)
@@ -59,7 +78,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private fun initPresenter() {
         if (getLogicClazz() != null) {
             mPresenter = getLogicImpl()
-            mPresenter?.setRxTag(RxTag)
+            mPresenter?.setRxTag(mRxTag)
         }
     }
 
@@ -83,6 +102,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         if (null != dialog) {
             dialog?.dismiss()
         }
+    }
+
+    /**
+     * 是否使用默认标题
+     */
+    fun useDefaultTitlBar(): Boolean {
+        return true
     }
 
     /**
@@ -148,6 +174,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     protected fun initData() {}
 
+    protected abstract fun getTitleBarView(): Int
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (PERMISSION_RECODE == requestCode) {
             var deniedLists = mutableListOf<String>()
@@ -168,7 +196,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun onPause() {
         super.onPause()
         //防止结束当前界面立马进入本界面请求被取消
-        RxJavaManagerUtils.cancelDisposable(RxTag)
+        RxJavaManagerUtils.cancelDisposable(mRxTag)
 
     }
 
