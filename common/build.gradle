@@ -63,3 +63,14 @@ dependencies {
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.groupId = 'com.even'
+        pom.artifactId = 'common'
+        pom.version = '1.0.0'
+        pom.packaging = 'arr'
+        repository(url: "file:///D:/androidMaven/")
+    }
+}
