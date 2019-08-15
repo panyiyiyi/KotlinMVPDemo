@@ -10,7 +10,7 @@ import java.io.StringWriter
  *  异常日志打印
  */
 class CatchException : Thread.UncaughtExceptionHandler {
-    val handler: Thread.UncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    private val handler: Thread.UncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
 
     init {
         Thread.setDefaultUncaughtExceptionHandler(this)
