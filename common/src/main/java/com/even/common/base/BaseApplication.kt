@@ -39,6 +39,7 @@ open class BaseApplication : Application() {
             ARouter.openLog()
             ARouter.openLog()
         }
+        ARouter.init(this)
     }
 
     /**
