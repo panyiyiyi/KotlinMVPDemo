@@ -44,15 +44,16 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (useDefaultTitlBar()) {
+        if (useDefaultTitleBar()) {
             val linearLayout = LinearLayout(this)
-            val lp = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
             val titleBar = layoutInflater.inflate(getTitleBarView(), null)
-            linearLayout.orientation = LinearLayout.VISIBLE
-            linearLayout.addView(titleBar, lp)
+            linearLayout.addView(
+                titleBar, LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            )
+            linearLayout.orientation = LinearLayout.VERTICAL
             linearLayout.addView(
                 layoutInflater.inflate(getContentView(), null), LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -107,7 +108,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     /**
      * 是否使用默认标题
      */
-    fun useDefaultTitlBar(): Boolean {
+    open fun useDefaultTitleBar(): Boolean {
         return true
     }
 
@@ -115,7 +116,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      * 单个权限申请
      */
     @Synchronized
-    fun requestPermission(permission: String, callBack: OnPermissionCallBack) {
+    open fun requestPermission(permission: String, callBack: OnPermissionCallBack) {
         requestPermissions(mutableListOf(permission), object : OnPermissionCallBacks {
             override fun onFailResult(permissionDenieds: Array<String>) {
                 callBack.onResult(false)
@@ -132,7 +133,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      * 多权限申请
      */
     @Synchronized
-    fun requestPermissions(permissions: MutableList<String>, callBacks: OnPermissionCallBacks) {
+    open fun requestPermissions(permissions: MutableList<String>, callBacks: OnPermissionCallBacks) {
         this.permissionCallBacks = callBacks
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             //6.0以下
@@ -156,7 +157,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     }
 
-    fun startActivity(clz: Class<BaseActivity>) {
+    open fun startActivity(clz: Class<BaseActivity>) {
         startActivity(Intent(this, clz))
     }
 

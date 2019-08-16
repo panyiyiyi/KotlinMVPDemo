@@ -12,6 +12,7 @@ class MyApplication : BaseApplication() {
         super.onCreate()
 
         initHttpUtils("https://testmemapi.kanghehealth.com", BuildConfig.DEBUG)
+        initRouter(BuildConfig.DEBUG)
     }
 
 }
