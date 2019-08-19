@@ -63,7 +63,6 @@ dependencies {
     annotationProcessor "com.alibaba:arouter-compiler:$arouter_compiler"
     //EventBus
     api 'org.simple:androideventbus:1.0.5.1'
-    api 'com.google.android.material:material:1.1.0-alpha09'
 
 }
 repositories {
@@ -75,7 +74,7 @@ uploadArchives {
     repositories.mavenDeployer {
         pom.groupId = 'com.even'
         pom.artifactId = 'common'
-        pom.version = '1.0.5'
+        pom.version = '1.0.6'
         pom.packaging = 'arr'
         repository(url: "file:///D:/androidMaven/")
     }
