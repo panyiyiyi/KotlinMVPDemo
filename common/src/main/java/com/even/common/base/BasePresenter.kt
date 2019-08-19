@@ -6,9 +6,9 @@ package com.even.common.base
  *  Email: emailtopan@163.com
  *
  */
-class BasePresenter<V : BaseView> {
+open class BasePresenter<V : BaseView> {
     private var mView: V? = null
-    private var RxTag: String? = ""
+    lateinit var RxTag: String
     fun attachView(mvpView: V) {
         this.mView = mvpView
     }
@@ -29,8 +29,5 @@ class BasePresenter<V : BaseView> {
         return mView != null
     }
 
-    fun setRxTag(rxTag: String) {
-        this.RxTag = rxTag
-    }
 
 }

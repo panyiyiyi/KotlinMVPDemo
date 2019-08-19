@@ -79,7 +79,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private fun initPresenter() {
         if (getLogicClazz() != null) {
             mPresenter = getLogicImpl()
-            mPresenter?.setRxTag(mRxTag)
+            mPresenter?.RxTag = mRxTag
         }
     }
 

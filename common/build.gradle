@@ -74,7 +74,7 @@ uploadArchives {
     repositories.mavenDeployer {
         pom.groupId = 'com.even'
         pom.artifactId = 'common'
-        pom.version = '1.0.6'
+        pom.version = '1.0.11'
         pom.packaging = 'arr'
         repository(url: "file:///D:/androidMaven/")
     }

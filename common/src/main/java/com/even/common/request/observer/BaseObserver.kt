@@ -29,6 +29,7 @@ abstract class BaseObserver<T> : Observer<T>, ISubscriber<T> {
 
     override fun onNext(t: T) {
         doNext(t)
+        doCompleted()
     }
 
     override fun onError(e: Throwable) {

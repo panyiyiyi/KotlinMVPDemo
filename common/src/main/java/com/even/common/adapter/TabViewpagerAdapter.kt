@@ -3,7 +3,7 @@ package com.even.common.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.even.common.base.BaseTabFragment
+import com.even.common.base.BaseFragment
 
 /**
  * @author  Created by Even on 2019/8/14
@@ -12,7 +12,7 @@ import com.even.common.base.BaseTabFragment
  */
 class TabViewpagerAdapter(
     fm: FragmentManager,
-    var fgLists: List<BaseTabFragment>,
+    var fgLists: List<BaseFragment>,
     var titleNames: Array<String>
 ) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {

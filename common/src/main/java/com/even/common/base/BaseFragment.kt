@@ -13,15 +13,14 @@ import com.even.common.utils.DialogUtils
 /**
  * @author  Created by Even on 2019/8/6
  *  Email: emailtopan@163.com
- *  懒加载Fragment
+ *  Fragment基类
  */
-abstract class BaseLazyFragment : Fragment(), BaseView {
+abstract class BaseFragment : Fragment(), BaseView {
 
     lateinit var mView: View
     lateinit var activity: BaseActivity
 
     var mPresenter: BasePresenter<BaseView>? = null
-
     private var dialog: Dialog? = null
 
 
@@ -31,13 +30,13 @@ abstract class BaseLazyFragment : Fragment(), BaseView {
         return mView
     }
 
-    private fun initMethod() {
-        if (userVisibleHint) {
-            initPresenter()
-            initView()
-            initData()
-        }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initPresenter()
+        initView()
+        initData()
     }
+
 
     fun startActivity(clz: Class<BaseActivity>) {
         startActivity(Intent(activity, clz))
@@ -75,16 +74,10 @@ abstract class BaseLazyFragment : Fragment(), BaseView {
         return LogicProxy.bind(getLogicClazz()!!, this)
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        initMethod()
-    }
-
-
     abstract fun getContentView(): Int
     abstract fun getLogicClazz(): Class<*>?
     abstract fun initView()
-    fun initData() {}
+    open fun initData() {}
 
     override fun onDestroy() {
         super.onDestroy()
