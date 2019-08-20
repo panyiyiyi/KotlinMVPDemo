@@ -19,7 +19,7 @@ object LogUtils {
     /**
      * 日志tag
      */
-    var mLogTag = "Even"
+    var mLogTag = "EvenLog"
 
     fun init(isShow: Boolean) {
         mIsShowLog = isShow

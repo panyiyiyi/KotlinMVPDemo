@@ -11,7 +11,7 @@ class MyApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        initHttpUtils("https://testmemapi.kanghehealth.com", BuildConfig.DEBUG)
+        initHttpUtils("https://www.wanandroid.com", BuildConfig.DEBUG)
         initRouter(BuildConfig.DEBUG)
     }
 

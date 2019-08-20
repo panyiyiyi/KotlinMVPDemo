@@ -37,4 +37,26 @@ class MainPresenter : BasePresenter<MainView>() {
                 }
             })
     }
+
+    fun getData2() {
+        RxHttpUtils.createApi(ApiService::class.java)
+            .getArticleLists("409", 1)
+            .compose(Transformer.switchSchedulers())
+            .subscribe(object : BaseStringObserver(RxTag) {
+                override fun doSubscriber(disposable: Disposable) {
+                }
+
+                override fun doFail(errorMsg: String) {
+                    LogUtils.e(errorMsg)
+                }
+
+                override fun doNext(json: String) {
+                    LogUtils.e(json)
+                }
+
+                override fun doCompleted() {
+                    LogUtils.e("")
+                }
+            })
+    }
 }

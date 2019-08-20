@@ -15,7 +15,7 @@ class MainActivity : BaseActivity(), MainView {
 
     override fun initView() {
         btn.setOnClickListener {
-            (mPresenter as MainPresenter).getData()
+            (mPresenter as MainPresenter).getData2()
 
 
 //            val navigation = ARouter.getInstance().build("/App/test").navigation()

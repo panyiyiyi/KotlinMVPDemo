@@ -15,14 +15,16 @@ class LogInterceptor : HttpLoggingInterceptor.Logger {
 
     override fun log(message: String) {
         if (message.startsWith("--> POST") || message.startsWith("--> GET")) {
-            mMessage.append("\n")
+            mMessage.setLength(0)
+            mMessage.append(" ")
+            mMessage.append("\r\n")
         }
         if (message.startsWith("{") && message.endsWith("}")
             || message.startsWith("[") && message.endsWith("]")
         ) {
-            mMessage.append(formatJson(message).plus("\n"))
+            mMessage.append(formatJson(message))
         }
-
+        mMessage.append(message.plus("\n"))
         //请求或响应结束，打印格式化日志
         if (message.startsWith("<-- END HTTP")) {
             LogUtils.i(mMessage.toString())
