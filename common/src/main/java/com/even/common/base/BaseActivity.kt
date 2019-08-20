@@ -167,13 +167,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return LogicProxy.bind(getLogicClazz()!!, this)
     }
 
-    protected abstract fun getContentView(): Int
+     abstract fun getContentView(): Int
 
-    protected abstract fun initView()
+     abstract fun initView()
 
-    protected abstract fun getLogicClazz(): Class<*>?
+     abstract fun getLogicClazz(): Class<*>?
 
-    protected fun initData() {}
+    open fun initData() {}
 
     protected abstract fun getTitleBarView(): Int
 

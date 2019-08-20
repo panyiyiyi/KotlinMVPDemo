@@ -26,7 +26,7 @@ class ApplicationUtils {
 
     @SuppressLint("PrivateApi")
     constructor() {
-        var activityThread: Any?
+        val activityThread: Any?
         val threadClass = Class.forName("android.app.ActivityThread") ?: return
         val threadMethod = threadClass.getMethod("currentActivityThread") ?: return
         threadMethod.isAccessible = true

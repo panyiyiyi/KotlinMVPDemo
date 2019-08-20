@@ -67,6 +67,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     private fun initPresenter() {
         if (null != getLogicClazz()) {
             mPresenter = getLogicImpl()
+            mPresenter!!.RxTag = activity.mRxTag
         }
     }
 

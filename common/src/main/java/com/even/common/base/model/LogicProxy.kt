@@ -17,7 +17,7 @@ object LogicProxy {
             if (cls.isAnnotationPresent(Implement::class.java)) {
                 for (ann in cls.declaredAnnotations) {
                     if (ann is Implement) {
-                        return ann.value.objectInstance
+                        return ann.value.java.newInstance()
                     }
                 }
             }

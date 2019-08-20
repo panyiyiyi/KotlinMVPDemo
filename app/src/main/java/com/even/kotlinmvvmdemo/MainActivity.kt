@@ -1,23 +1,25 @@
 package com.even.kotlinmvvmdemo
 
-import com.alibaba.android.arouter.launcher.ARouter
 import com.even.common.base.BaseActivity
-import com.even.common.request.observer.BaseStringObserver
-import com.even.common.request.observer.Transformer
-import com.even.common.request.utils.RxHttpUtils
-import com.even.common.utils.LogUtils
-import io.reactivex.disposables.Disposable
+import com.even.kotlinmvvmdemo.ui.presenters.MainPresenter
+import com.even.kotlinmvvmdemo.ui.views.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
-    override fun getTitleBarView(): Int = R.layout.item_title
+class MainActivity : BaseActivity(), MainView {
+    override fun getSuccess() {
 
+    }
+
+    override fun getTitleBarView(): Int = R.layout.item_title
     override fun getContentView(): Int = R.layout.activity_main
 
     override fun initView() {
         btn.setOnClickListener {
-            val navigation = ARouter.getInstance().build("/App/test").navigation()
-            LogUtils.e(navigation.toString())
+            (mPresenter as MainPresenter).getData()
+
+
+//            val navigation = ARouter.getInstance().build("/App/test").navigation()
+//            LogUtils.e(navigation.toString())
 
 
             //            DialogUtils.showMsgDialog(this, DialogBean("测试", "", true), object : OnDialogConfirmClick {
@@ -74,6 +76,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun getLogicClazz(): Class<*>? = null
-
+    override fun getLogicClazz(): Class<*> = MainView::class.java
+    override fun initData() {
+        super.initData()
+        (mPresenter as MainPresenter).getData()
+    }
 }
