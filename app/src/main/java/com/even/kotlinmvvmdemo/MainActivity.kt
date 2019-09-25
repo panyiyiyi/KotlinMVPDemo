@@ -1,6 +1,7 @@
 package com.even.kotlinmvvmdemo
 
 import com.even.common.base.BaseActivity
+import com.even.commonrv.utils.GlideUtil
 import com.even.kotlinmvvmdemo.ui.presenters.MainPresenter
 import com.even.kotlinmvvmdemo.ui.views.MainView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +15,7 @@ class MainActivity : BaseActivity(), MainView {
     override fun getContentView(): Int = R.layout.activity_main
 
     override fun initView() {
+        GlideUtil.loadNet(iv, "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png")
         btn.setOnClickListener {
             (mPresenter as MainPresenter).getData2()
 
