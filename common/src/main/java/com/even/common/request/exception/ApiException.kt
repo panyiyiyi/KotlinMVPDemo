@@ -31,30 +31,30 @@ class ApiException : Exception {
             if (throwable is SocketTimeoutException) {
                 //请求超时
                 apiEx = ApiException(throwable, ErrorCode.TIMEOUT_ERROR)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.timeout_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_timeout_error)
             } else if (throwable is ConnectException) {
                 //连接异常
                 apiEx = ApiException(throwable, ErrorCode.TIMEOUT_ERROR)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.connect_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_connect_error)
             } else if (throwable is UnknownHostException) {
                 //服务器异常
                 apiEx = ApiException(throwable, ErrorCode.TIMEOUT_ERROR)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.unknown_host_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_unknown_host_error)
             } else if (throwable is NullPointerException) {
                 //空指针
                 apiEx = ApiException(throwable, ErrorCode.NULL_POINTER_ERROR)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.null_pointer_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_null_pointer_error)
             } else if (throwable is SSLHandshakeException) {
                 //证书校验失败
                 apiEx = ApiException(throwable, ErrorCode.SSL_ERROR)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.ssl_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_ssl_error)
             } else if (throwable is JSONException
                 || throwable is NotSerializableException
                 || throwable is ParseException
             ) {
                 //解析错误
                 apiEx = ApiException(throwable, ErrorCode.PARSE_ERROR)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.parse_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_parse_error)
             } else if (throwable is IllegalAccessException) {
                 //非法数据
                 //解析错误
@@ -63,7 +63,7 @@ class ApiException : Exception {
             } else {
                 //未知异常
                 apiEx = ApiException(throwable, ErrorCode.UNKNOWN)
-                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.unknown_error)
+                apiEx.message = ApplicationUtils.getInstance().applicationContext.getString(R.string.common_unknown_error)
             }
             return apiEx
         }

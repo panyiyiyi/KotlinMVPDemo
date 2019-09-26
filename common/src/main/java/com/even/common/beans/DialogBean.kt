@@ -22,8 +22,8 @@ data class DialogBean(
     constructor(title: String, msg: String) : this(
         title,
         msg,
-        ApplicationUtils.getInstance().applicationContext.getString(R.string.cancel),
-        ApplicationUtils.getInstance().applicationContext.getString(R.string.confirm),
+        ApplicationUtils.getInstance().applicationContext.getString(R.string.common_cancel),
+        ApplicationUtils.getInstance().applicationContext.getString(R.string.common_confirm),
         false
     )
 
@@ -33,8 +33,8 @@ data class DialogBean(
     constructor(title: String, msg: String, canCancel: Boolean) : this(
         title,
         msg,
-        ApplicationUtils.getInstance().applicationContext.getString(R.string.cancel),
-        ApplicationUtils.getInstance().applicationContext.getString(R.string.confirm),
+        ApplicationUtils.getInstance().applicationContext.getString(R.string.common_cancel),
+        ApplicationUtils.getInstance().applicationContext.getString(R.string.common_confirm),
         canCancel
     )
 
