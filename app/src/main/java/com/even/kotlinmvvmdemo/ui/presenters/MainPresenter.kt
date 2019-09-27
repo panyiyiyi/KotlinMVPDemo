@@ -25,15 +25,15 @@ class MainPresenter : BasePresenter<MainView>() {
                 }
 
                 override fun doFail(errorMsg: String) {
-                    LogUtils.e(errorMsg)
+//                    LogUtils.e(errorMsg)
                 }
 
                 override fun doNext(json: String) {
-                    LogUtils.e(json)
+//                    LogUtils.e(json)
                 }
 
                 override fun doCompleted() {
-                    LogUtils.e("")
+//                    LogUtils.e("")
                 }
             })
     }
