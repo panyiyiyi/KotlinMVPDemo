@@ -1,6 +1,5 @@
 package com.even.common.utils
 
-import android.app.ProgressDialog.show
 import android.widget.Toast
 
 /**
