@@ -13,12 +13,9 @@ class TabViewpagerAdapter<T : Fragment>(
     fm: FragmentManager,
     var fgLists: List<T>,
     var titleNames: List<String>,
-    private var behavior: Int?
+    private var behavior: Int? = null
 ) : FragmentPagerAdapter(fm, behavior ?: BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getItem(position: Int): Fragment {
-        return fgLists[position]
-    }
-
+    override fun getItem(position: Int): Fragment = fgLists[position]
     override fun getCount(): Int = fgLists.size
     override fun getPageTitle(position: Int): CharSequence = titleNames[position]
 }
