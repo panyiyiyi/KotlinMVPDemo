@@ -84,19 +84,24 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     override fun showLoading() {
-        if (null != dialog && dialog!!.isShowing) {
-            return
+        if (!this.isFinishing) {
+            if (null != dialog && dialog!!.isShowing) {
+                return
+            }
+            dialog = DialogUtils.showLoadingDialog(this, "")
+            dialog?.show()
         }
-        dialog = DialogUtils.showLoadingDialog(this, "")
-        dialog?.show()
     }
 
     override fun showLoading(title: String) {
-        if (null != dialog && dialog!!.isShowing) {
-            return
+        if (!this.isFinishing) {
+
+            if (null != dialog && dialog!!.isShowing) {
+                return
+            }
+            dialog = DialogUtils.showLoadingDialog(this, title)
+            dialog?.show()
         }
-        dialog = DialogUtils.showLoadingDialog(this, title)
-        dialog?.show()
     }
 
     override fun hideLoading() {
@@ -167,11 +172,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return LogicProxy.bind(getLogicClazz()!!, this)
     }
 
-     abstract fun getContentView(): Int
+    abstract fun getContentView(): Int
 
-     abstract fun initView()
+    abstract fun initView()
 
-     abstract fun getLogicClazz(): Class<*>?
+    abstract fun getLogicClazz(): Class<*>?
 
     open fun initData() {}
 

@@ -13,6 +13,7 @@ class MyApplication : BaseApplication() {
 
         initHttpUtils("https://www.wanandroid.com", BuildConfig.DEBUG)
         initRouter(BuildConfig.DEBUG)
+        initLog(BuildConfig.DEBUG)
     }
 
 }

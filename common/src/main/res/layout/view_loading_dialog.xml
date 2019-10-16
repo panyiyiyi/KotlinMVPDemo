@@ -7,7 +7,7 @@
           android:padding="10dp"
           android:textColor="@color/color333333"
           android:background="@drawable/dialog_bg"
-          android:text="@string/loading"
+          android:text="@string/common_loading"
           android:textSize="@dimen/textSize_M"
           android:layout_height="wrap_content"/>
 
