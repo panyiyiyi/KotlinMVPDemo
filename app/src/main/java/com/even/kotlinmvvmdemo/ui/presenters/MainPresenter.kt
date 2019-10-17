@@ -59,4 +59,34 @@ class MainPresenter : BasePresenter<MainView>() {
                 }
             })
     }
+
+    /**
+     * 获取视频数据
+     * page:从0开始
+     */
+    fun getVideoList(pageNo: Int, type: String) {
+        var map = mutableMapOf<String, Any>()
+        map["type"] = type
+        map["tag"] = "热门"
+        map["page_limit"] = 20
+        map["page_start"] = pageNo * 20
+        map["sort"] = "recommend"
+
+        RxHttpUtils.createApi(ApiService::class.java)
+            .getHotVideo(map)
+            .compose(Transformer.switchSchedulers())
+            .subscribe(object : BaseStringObserver(RxTag) {
+                override fun doSubscriber(disposable: Disposable) {
+                }
+
+                override fun doFail(errorMsg: String) {
+                }
+
+                override fun doNext(json: String) {
+                }
+
+                override fun doCompleted() {
+                }
+            })
+    }
 }

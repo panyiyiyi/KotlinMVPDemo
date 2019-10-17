@@ -3,6 +3,7 @@ package com.even.kotlinmvvmdemo
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.QueryMap
 
 /**
  * @author  Created by Even on 2019/8/13
@@ -23,4 +24,7 @@ interface ApiService {
      */
     @GET("/wxarticle/list/{id}/{page}/json")
     fun getArticleLists(@Path("id") id: String, @Path("page") page: Int): Observable<String>
+
+    @GET("/search_subjects")
+    fun getHotVideo(@QueryMap map: MutableMap<String, Any>): Observable<String>
 }

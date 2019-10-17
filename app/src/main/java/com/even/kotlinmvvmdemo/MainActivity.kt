@@ -20,7 +20,8 @@ class MainActivity : BaseActivity(), MainView {
     override fun initView() {
 //        GlideUtil.loadNet(iv, "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png")
         btn.setOnClickListener {
-            (mPresenter as MainPresenter).getData2()
+            //            (mPresenter as MainPresenter).getData2()
+            (mPresenter as MainPresenter).getVideoList(0, "mv")
 
 
 //            val navigation = ARouter.getInstance().build("/App/test").navigation()

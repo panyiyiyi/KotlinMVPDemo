@@ -15,6 +15,7 @@ class LogInterceptor : HttpLoggingInterceptor.Logger {
 
     override fun log(message: String) {
         if (message.startsWith("--> POST") || message.startsWith("--> GET")) {
+            mMessage.setLength(0)
             mMessage.append("\n")
         }
         if (message.startsWith("{") && message.endsWith("}")
@@ -22,7 +23,7 @@ class LogInterceptor : HttpLoggingInterceptor.Logger {
         ) {
             mMessage.append(formatJson(message))
         }
-        mMessage.append("\n")
+        mMessage.append(message + "\n")
         //请求或响应结束，打印格式化日志
         if (message.startsWith("<-- END HTTP")) {
             LogUtils.i(mMessage.toString())
