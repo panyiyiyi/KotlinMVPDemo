@@ -22,8 +22,10 @@ class LogInterceptor : HttpLoggingInterceptor.Logger {
             || message.startsWith("[") && message.endsWith("]")
         ) {
             mMessage.append(formatJson(message))
+        } else {
+            mMessage.append(message)
         }
-        mMessage.append(message + "\n")
+        mMessage.append("\n")
         //请求或响应结束，打印格式化日志
         if (message.startsWith("<-- END HTTP")) {
             LogUtils.i(mMessage.toString())
