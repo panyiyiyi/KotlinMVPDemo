@@ -29,6 +29,7 @@ abstract class BaseStringObserver : Observer<String>, IStringSubscriber {
 
     override fun onNext(t: String) {
         doNext(t)
+        doCompleted()
     }
 
     override fun onError(e: Throwable) {
