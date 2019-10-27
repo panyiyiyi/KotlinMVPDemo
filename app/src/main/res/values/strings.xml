@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KotlinMvvMDemo</string>
+    <string name="classify_type_rate">类型：%s/%s分</string>
 </resources>

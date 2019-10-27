@@ -24,6 +24,13 @@ object UiUtils {
     }
 
     /**
+     *  获取格式化之后的文字
+     */
+    fun getStringFormat(resId: Int, vararg value: Any): String {
+        return String.format(getString(resId), *value)
+    }
+
+    /**
      * 获取StringArray
      */
     fun getStringArray(resId: Int): Array<String> {
