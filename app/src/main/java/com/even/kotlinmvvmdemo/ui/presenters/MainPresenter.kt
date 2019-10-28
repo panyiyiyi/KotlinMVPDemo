@@ -77,15 +77,19 @@ class MainPresenter : BasePresenter<MainView>() {
             .compose(Transformer.switchSchedulers())
             .subscribe(object : BaseStringObserver(RxTag) {
                 override fun doSubscriber(disposable: Disposable) {
+                    LogUtils.e("hh0")
                 }
 
                 override fun doFail(errorMsg: String) {
+                    LogUtils.e("hh0")
                 }
 
                 override fun doNext(json: String) {
+                    LogUtils.e("hh0")
                 }
 
                 override fun doCompleted() {
+                    LogUtils.e("hh0")
                 }
             })
     }

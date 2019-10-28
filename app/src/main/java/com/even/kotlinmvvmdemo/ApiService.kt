@@ -25,6 +25,6 @@ interface ApiService {
     @GET("/wxarticle/list/{id}/{page}/json")
     fun getArticleLists(@Path("id") id: String, @Path("page") page: Int): Observable<String>
 
-    @GET("search_subjects")
+    @GET("/search_subjects")
     fun getHotVideo(@QueryMap map: MutableMap<String, Any>): Observable<String>
 }
