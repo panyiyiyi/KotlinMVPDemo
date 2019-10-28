@@ -1,5 +1,6 @@
 package com.even.common.utils
 
+import android.app.Activity
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 
@@ -50,4 +51,15 @@ object UiUtils {
     fun getDrawable(resId: Int): Drawable? {
         return ContextCompat.getDrawable(ApplicationUtils.getInstance().applicationContext, resId)
     }
+
+    /**
+     * 设置window透明度
+     */
+    fun setWindowBgAlpha(activity: Activity, bgAlpha: Float) {
+        val window = activity.window
+        val attributes = window.attributes
+        attributes.alpha = bgAlpha
+        activity.window.attributes = attributes
+    }
+
 }
