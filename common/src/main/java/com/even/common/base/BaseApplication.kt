@@ -7,6 +7,7 @@ import com.even.common.request.utils.OkHttpConfig
 import com.even.common.request.utils.RxHttpUtils
 import com.even.common.utils.LogUtils
 import com.even.common.utils.SpUtils
+import java.net.Proxy
 
 /**
  * @author  Created by Even on 2019/8/9
@@ -27,6 +28,20 @@ open class BaseApplication : Application() {
             .setWriteTimeout(10)
             .setConnectTimeout(10)
             .setDebug(isDebug)
+            .build()
+        RxHttpUtils
+            .setBaseUrl(hostUrl)
+            .setOnClient(build)
+            .buildClient()
+    }
+
+    fun initHttpUtils(hostUrl: String, isDebug: Boolean, proxy: Proxy) {
+        val build = OkHttpConfig
+            .setReadTimeout(10)
+            .setWriteTimeout(10)
+            .setConnectTimeout(10)
+            .setDebug(isDebug)
+            .setProxy(proxy)
             .build()
         RxHttpUtils
             .setBaseUrl(hostUrl)

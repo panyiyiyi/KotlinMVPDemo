@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
 import java.io.InputStream
+import java.net.Proxy
 import java.util.concurrent.TimeUnit
 
 /**
@@ -37,7 +38,7 @@ object OkHttpConfig {
      */
     val DEFAULT_DIR_NAME = "rxCache"
 
-    val mBuilder = OkHttpClient.Builder()
+    private val mBuilder = OkHttpClient.Builder()
 
     private var headerMaps: Map<String, Any>? = null//请求头
     private var isDebug = false  //是否调试模式
@@ -50,6 +51,7 @@ object OkHttpConfig {
     private var connectTimeout = 0L //连接超时
     private var isFile: InputStream? = null  //客户端校验证书
     private var password = ""  //证书密码
+    private var proxy: Proxy? = null//是否能设置代理
     private var certificates: Array<out InputStream>? = null //https证书
     private var interceptors: Array<out Interceptor>? = null //拦截器
 
@@ -118,12 +120,31 @@ object OkHttpConfig {
         return this
     }
 
+    /**
+     * 设置是否能开代理
+     */
+    fun setProxy(proxy: Proxy): OkHttpConfig {
+        this.proxy = proxy
+        return this
+    }
+
+
     fun build(): OkHttpClient {
         setCacheConfig()
         setSSLConfig()
         addInterceptors()
         setDebugConfig()
+        setProxyConfig()
         return mBuilder.build()
+    }
+
+    /**
+     * 设置能否代理
+     */
+    private fun setProxyConfig() {
+        proxy?.let {
+            mBuilder.proxy(proxy)
+        }
     }
 
     /**
@@ -153,7 +174,9 @@ object OkHttpConfig {
      * 添加配置传递过来得拦截器
      */
     private fun addInterceptors() {
-        interceptors?.forEach { mBuilder.addInterceptor(it) }
+        interceptors?.forEach {
+            mBuilder.addInterceptor(it)
+        }
     }
 
     /**
