@@ -4,10 +4,13 @@ import android.app.Dialog
 import com.even.common.base.BaseActivity
 import com.even.common.beans.DialogBean
 import com.even.common.impl.OnDialogConfirmClick
+import com.even.common.request.gson.GsonUtils
 import com.even.common.utils.DialogUtils
+import com.even.common.utils.ResourceUtils
 import com.even.common.utils.UiUtils
 import com.even.kotlinmvvmdemo.ui.presenters.MainPresenter
 import com.even.kotlinmvvmdemo.ui.views.MainView
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainView {
@@ -19,6 +22,10 @@ class MainActivity : BaseActivity(), MainView {
     override fun getContentView(): Int = R.layout.activity_main
 
     override fun initView() {
+        val ruleStr = ResourceUtils.getAssets2String("rule.txt")
+        if (!ruleStr.isNullOrEmpty()) {
+
+        }
 
         tvText.text = UiUtils.getStringFormat(R.string.classify_type_rate, "测试", "hh")
 //        GlideUtil.loadNet(iv, "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png")
