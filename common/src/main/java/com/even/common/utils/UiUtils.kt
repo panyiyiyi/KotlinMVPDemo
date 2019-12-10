@@ -2,7 +2,11 @@ package com.even.common.utils
 
 import android.app.Activity
 import android.graphics.drawable.Drawable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
+import com.even.common.R
 
 /**
  * @author  Created by Even on 2019/8/14
@@ -60,6 +64,16 @@ object UiUtils {
         val attributes = window.attributes
         attributes.alpha = bgAlpha
         activity.window.attributes = attributes
+    }
+
+    /**
+     * 设置TextView部分颜色
+     */
+    fun setTextPartColor(textValue: String, colorId: Int, startPosition: Int, endPosition: Int): SpannableString {
+        val spannableString = SpannableString(textValue)
+        val colorSpan = ForegroundColorSpan(getColor(colorId))
+        spannableString.setSpan(colorSpan, startPosition, endPosition, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        return spannableString
     }
 
 }
