@@ -5,12 +5,17 @@ import com.even.common.base.BaseActivity
 import com.even.common.beans.DialogBean
 import com.even.common.impl.OnDialogConfirmClick
 import com.even.common.request.gson.GsonUtils
+import com.even.common.request.observer.BaseStringObserver
+import com.even.common.request.observer.Transformer
+import com.even.common.request.utils.RxHttpUtils
 import com.even.common.utils.DialogUtils
+import com.even.common.utils.LogUtils
 import com.even.common.utils.ResourceUtils
 import com.even.common.utils.UiUtils
 import com.even.kotlinmvvmdemo.ui.presenters.MainPresenter
 import com.even.kotlinmvvmdemo.ui.views.MainView
 import com.google.gson.reflect.TypeToken
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainView {
@@ -71,25 +76,25 @@ class MainActivity : BaseActivity(), MainView {
 //                    }
 //                })
 
-//            RxHttpUtils.createApi(ApiService::class.java)
-//                .getImageVerification()
-//                .compose(Transformer.switchSchedulers())
-//                .subscribe(object : BaseStringObserver(mRxTag) {
-//                    override fun doSubscriber(disposable: Disposable) {
-//                    }
-//
-//                    override fun doFail(errorMsg: String) {
-//                        LogUtils.e(errorMsg)
-//                    }
-//
-//                    override fun doNext(json: String) {
-//                        LogUtils.e(json)
-//                    }
-//
-//                    override fun doCompleted() {
-//                        LogUtils.e("")
-//                    }
-//                })
+            RxHttpUtils.createApi(ApiService::class.java)
+                .getImageVerification()
+                .compose(Transformer.switchSchedulers())
+                .subscribe(object : BaseStringObserver(mRxTag) {
+                    override fun doSubscriber(disposable: Disposable) {
+                    }
+
+                    override fun doFail(errorMsg: String) {
+                        LogUtils.e(errorMsg)
+                    }
+
+                    override fun doNext(json: String) {
+                        LogUtils.e(json)
+                    }
+
+                    override fun doCompleted() {
+                        LogUtils.e("")
+                    }
+                })
 
 
         }
