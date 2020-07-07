@@ -4,17 +4,13 @@ import android.app.Dialog
 import com.even.common.base.BaseActivity
 import com.even.common.beans.DialogBean
 import com.even.common.impl.OnDialogConfirmClick
-import com.even.common.request.gson.GsonUtils
 import com.even.common.request.observer.BaseStringObserver
 import com.even.common.request.observer.Transformer
 import com.even.common.request.utils.RxHttpUtils
-import com.even.common.utils.DialogUtils
-import com.even.common.utils.LogUtils
-import com.even.common.utils.ResourceUtils
-import com.even.common.utils.UiUtils
+import com.even.common.utils.*
+import com.even.commonrv.utils.GlideUtil
 import com.even.kotlinmvvmdemo.ui.presenters.MainPresenter
 import com.even.kotlinmvvmdemo.ui.views.MainView
-import com.google.gson.reflect.TypeToken
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,7 +29,10 @@ class MainActivity : BaseActivity(), MainView {
         }
 
         tvText.text = UiUtils.getStringFormat(R.string.classify_type_rate, "测试", "hh")
-//        GlideUtil.loadNet(iv, "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png")
+        GlideUtil.loadNet(
+            iv,
+            "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png"
+        )
         btn.setOnClickListener {
             //            (mPresenter as MainPresenter).getData2()
             (mPresenter as MainPresenter).getVideoList(0, "mv")
@@ -96,6 +95,18 @@ class MainActivity : BaseActivity(), MainView {
                     }
                 })
 
+
+        }
+
+        requestOverlays()
+
+    }
+
+    override fun resultOverlaysPermission(isAgree: Boolean) {
+        if (isAgree) {
+            ToastUtils.showShort("同意")
+        } else {
+            ToastUtils.showShort("不同意")
 
         }
     }

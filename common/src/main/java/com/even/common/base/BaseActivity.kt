@@ -3,8 +3,10 @@ package com.even.common.base
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -23,11 +25,6 @@ import com.even.common.utils.DialogUtils
  *
  */
 abstract class BaseActivity : AppCompatActivity(), BaseView {
-    companion object {
-        //权限请求码
-        const val PERMISSION_RECODE = 0x123
-    }
-
     /**
      * 用来存放网络请求的Key
      */
@@ -36,6 +33,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     lateinit var activity: BaseActivity
 
     private var dialog: Dialog? = null
+
     /**
      * 权限回调
      */
@@ -138,7 +136,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      * 多权限申请
      */
     @Synchronized
-    open fun requestPermissions(permissions: MutableList<String>, callBacks: OnPermissionCallBacks) {
+    open fun requestPermissions(
+        permissions: MutableList<String>,
+        callBacks: OnPermissionCallBacks
+    ) {
         this.permissionCallBacks = callBacks
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             //6.0以下
@@ -155,10 +156,38 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             }
         }
         if (isRequest) {
-            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), PERMISSION_RECODE)
+            ActivityCompat.requestPermissions(
+                this,
+                permissions.toTypedArray(),
+                REQ_PERMISSION_RECODE
+            )
         } else {
             permissionCallBacks?.onSuccessResult()
         }
+    }
+
+    /**
+     * 申请悬浮窗权限
+     */
+    open fun requestOverlays() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(activity)) {
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+                intent.data = Uri.fromParts("package", activity.packageName, null)
+                startActivityForResult(intent, REQ_OVERLAY_PERMISSION)
+            } else {
+                resultOverlaysPermission(true)
+            }
+        } else {
+            resultOverlaysPermission(true)
+        }
+    }
+
+    /**
+     * 申请悬浮窗权限结果
+     * @param isAgree 是否同意
+     */
+    open fun resultOverlaysPermission(isAgree: Boolean) {
 
     }
 
@@ -182,8 +211,12 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     protected abstract fun getTitleBarView(): Int
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (PERMISSION_RECODE == requestCode) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (REQ_PERMISSION_RECODE == requestCode) {
             var deniedLists = mutableListOf<String>()
 
             for (index in grantResults.indices) {
@@ -199,6 +232,22 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQ_OVERLAY_PERMISSION) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Settings.canDrawOverlays(activity)) {
+                    resultOverlaysPermission(true)
+                } else {
+                    resultOverlaysPermission(false)
+                }
+            } else {
+                resultOverlaysPermission(true)
+            }
+        }
+    }
+
+
     override fun onPause() {
         super.onPause()
         //防止结束当前界面立马进入本界面请求被取消
@@ -211,6 +260,15 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         ActivityManagerUtils.closeActivity(this)
         dialog?.let { DialogUtils.closeDialog(it) }
         mPresenter?.detachView()
+        permissionCallBacks = null
+    }
+
+    companion object {
+        //权限请求码
+        const val REQ_PERMISSION_RECODE = 0x123
+
+        //悬浮窗
+        const val REQ_OVERLAY_PERMISSION = 0x124
     }
 
 }

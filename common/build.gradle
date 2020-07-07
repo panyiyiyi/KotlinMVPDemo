@@ -49,7 +49,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "androidx.core:core-ktx:1.3.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'com.even:commonrv:1.0.7'
     //retrofit+rxjava相关
@@ -67,7 +67,7 @@ dependencies {
     //EventBus
     api 'org.simple:androideventbus:1.0.5.1'
     //glide
-    api 'com.github.bumptech.glide:glide:4.9.0'
+    api 'com.github.bumptech.glide:glide:4.11.0'
 
 }
 repositories {
@@ -79,7 +79,7 @@ uploadArchives {
     repositories.mavenDeployer {
         pom.groupId = 'com.even'
         pom.artifactId = 'common'
-        pom.version = '1.1.23'
+        pom.version = '1.1.25'
         pom.packaging = 'arr'
         repository(url: "file:///D:/androidMaven/")
     }
