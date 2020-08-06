@@ -9,30 +9,35 @@ object ErrorCode {
     /**
      * 未知错误
      */
-    val UNKNOWN = 1000
+    const val UNKNOWN = 1000
 
     /**
      * 超时
      */
-    val TIMEOUT_ERROR = 1001
+    const val TIMEOUT_ERROR = 1001
+
     /**
      * 空指针
      */
-    val NULL_POINTER_ERROR = 1002
+    const val NULL_POINTER_ERROR = 1002
+
     /**
      * 证书错误
      */
-    val SSL_ERROR = 1003
+    const val SSL_ERROR = 1003
+
     /**
      * 类型转换
      */
-    val CONVERSION_ERROR = 1004
+    const val CONVERSION_ERROR = 1004
+
     /**
      * 解析错误
      */
-    val PARSE_ERROR = 1005
+    const val PARSE_ERROR = 1005
+
     /**
      * 非法数据
      */
-    val ILLEGAL_ERROR = 1006
+    const val ILLEGAL_ERROR = 1006
 }

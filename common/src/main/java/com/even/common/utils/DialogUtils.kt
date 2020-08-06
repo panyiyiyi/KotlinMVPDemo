@@ -24,8 +24,10 @@ import com.even.commonrv.utils.DisplayUtil
 object DialogUtils {
     //弹窗与屏幕宽占比
     private const val WIDTH_RATIO = 0.85
+
     //加载提示框与屏宽占比
     private const val LOADING_WIDTH_RATIO = 0.5
+
     //宽高比例
     private const val WIDTH_HEIGHT_RATIO = 3
 
@@ -38,7 +40,7 @@ object DialogUtils {
         }
         val dialog = Dialog(activity, R.style.AlertDialogStyle)
         dialog.setContentView(view)
-        val width = DisplayUtil.getWindowWidth(activity) * LOADING_WIDTH_RATIO
+        val width = DisplayUtil.getScreenWidth() * LOADING_WIDTH_RATIO
         val height = width / WIDTH_HEIGHT_RATIO
         view.layoutParams = FrameLayout.LayoutParams(width.toInt(), height.toInt())
         return dialog
@@ -63,14 +65,15 @@ object DialogUtils {
         dialog.setContentView(mBindView.root)
         mBindView.root.layoutParams =
             FrameLayout.LayoutParams(
-                (DisplayUtil.getWindowWidth(activity) * WIDTH_RATIO).toInt(),
+                (DisplayUtil.getScreenWidth() * WIDTH_RATIO).toInt(),
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         dialog.setCanceledOnTouchOutside(dialogBean.canCancel)
         dialog.setCancelable(dialogBean.canCancel)
         dialog.show()
         mBindView.root.findViewById<Button>(R.id.btnCancel).setOnClickListener { dialog.cancel() }
-        mBindView.root.findViewById<Button>(R.id.btnConfirm).setOnClickListener { click.onConfirmClick(dialog, "") }
+        mBindView.root.findViewById<Button>(R.id.btnConfirm)
+            .setOnClickListener { click.onConfirmClick(dialog, "") }
     }
 
     /**
