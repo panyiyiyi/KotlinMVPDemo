@@ -8,7 +8,6 @@ import com.even.common.request.observer.BaseStringObserver
 import com.even.common.request.observer.Transformer
 import com.even.common.request.utils.RxHttpUtils
 import com.even.common.utils.*
-import com.even.commonrv.utils.GlideUtil
 import com.even.kotlinmvvmdemo.ui.presenters.MainPresenter
 import com.even.kotlinmvvmdemo.ui.views.MainView
 import io.reactivex.disposables.Disposable
@@ -40,7 +39,7 @@ class MainActivity : BaseActivity(), MainView {
                 KeyBoardUtils.hideKeyBoard(activity, it)
             } else {
                 b = true
-                KeyBoardUtils.showKeyBoard(activity, it)
+                KeyBoardUtils.showKeyBoard(activity)
             }
 
             //            (mPresenter as MainPresenter).getData2()

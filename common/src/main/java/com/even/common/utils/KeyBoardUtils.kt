@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager
  */
 object KeyBoardUtils {
 
-    fun showKeyBoard(context: Activity, view: View) {
+    fun showKeyBoard(context: Activity) {
         val imm =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(InputMethodManager.RESULT_SHOWN, InputMethodManager.HIDE_IMPLICIT_ONLY)
