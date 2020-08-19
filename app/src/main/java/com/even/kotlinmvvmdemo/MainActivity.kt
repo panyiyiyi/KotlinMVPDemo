@@ -29,11 +29,20 @@ class MainActivity : BaseActivity(), MainView {
         }
 
         tvText.text = UiUtils.getStringFormat(R.string.classify_type_rate, "测试", "hh")
-        GlideUtil.loadNet(
-            iv,
-            "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png"
-        )
+//        GlideUtil.loadNet(
+//            iv,
+//            "https://wanandroid.com/blogimgs/60462c4c-0d82-41aa-b76d-0406c80fce31.png"
+//        )
+        var b = false
         btn.setOnClickListener {
+            if (b) {
+                b = false
+                KeyBoardUtils.hideKeyBoard(activity, it)
+            } else {
+                b = true
+                KeyBoardUtils.showKeyBoard(activity, it)
+            }
+
             //            (mPresenter as MainPresenter).getData2()
             (mPresenter as MainPresenter).getVideoList(0, "mv")
 
@@ -98,7 +107,7 @@ class MainActivity : BaseActivity(), MainView {
 
         }
 
-        requestOverlays()
+//        requestOverlays()
 
     }
 
